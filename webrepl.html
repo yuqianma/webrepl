@@ -97,7 +97,7 @@ function calculate_size(win) {
 
 (function() {
     window.onload = function() {
-      var url = window.location.hash.substring(1);
+      var url = window.location.hash.substring(1) || localStorage.getItem('webrepl-url');
       if (url) {
         document.getElementById('url').value = 'ws://' + url;
       }
@@ -154,6 +154,7 @@ function update_file_status(s) {
 
 function connect(url) {
     window.location.hash = url.substring(5);
+    localStorage.setItem('webrepl-url', url.substring(5));
     ws = new WebSocket(url);
     ws.binaryType = 'arraybuffer';
     ws.onopen = function() {
